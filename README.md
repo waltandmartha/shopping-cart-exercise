@@ -1,3 +1,26 @@
+# Shopping cart built with react
+
+## To get app running:
+
+from the root folder (shopping-cart-react) run
+```
+yarn start
+```
+this should start json server on localhost:3000
+localhost:3000/products should show the json object
+
+then cd into the App folder. 
+From this folder run
+```
+yarn start-app
+```
+this should start the app running which will get products from the json server running at localhost:3000
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
