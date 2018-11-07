@@ -31,23 +31,31 @@ class App extends Component {
     });
   }
 
-    // addToCart = (product) => {
-    //   this.setState(prevState => ({
-    //     cart: [...prevState.cart, product] }))
-    //   }
- 
-  addToCart = (product) => {
-    this.setState(state => {
-      const cart = state.cart.concat(product)
+  
 
-      return {
-        cart
+
+  addToCart = (product) => {
+    const item = this.state.cart.find((item) =>  {
+      return product.uuid === item.uuid
+    } )
+
+    if (item) {
+      const index = this.state.cart.findIndex((item) =>  {
+        return product.uuid === item.uuid
+      } )
+      const cartItem = { uuid: item.uuid, name: item.name, price: item.price, qty: item.qty + 1 }
+      const updatedCart = this.state.cart.slice(0, index).concat(cartItem).concat(this.state.cart.slice(index + 1))
+      this.setState({cart: updatedCart})
+      } else {
+      const qty = 1
+      const cartItem = { uuid: product.uuid, name: product.name, price: product.price, qty: qty }
+      const cart = this.state.cart.concat(cartItem)
+      this.setState({cart})
       }
-    }) 
   }
 
   // calculateTotal = () => {
-    
+  //   product.price * product.qty 
   // }
 
              
@@ -81,7 +89,7 @@ class App extends Component {
                     <p>{product.name}</p>
                     <p>${product.price}</p>
                     <p>Quantity: {product.qty}</p>
-                    <button>Add one more</button> <button>Remove one</button>
+                    <button >Add one more</button> <button>Remove one</button>
                   </ul>
                 )}
                 <p><strong>
@@ -91,6 +99,10 @@ class App extends Component {
           </span>
         </div> 
       );
+    
+    // const totalBeforeDiscount = 0
+    // for(let i = 0; i < this.props.cart.length; i++)
+    //   totalBeforeDiscount += (this.props.product[i].price * this.props.product[i].qty)
     }
 
     {
