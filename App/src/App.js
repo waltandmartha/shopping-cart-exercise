@@ -7,12 +7,13 @@ class App extends Component {
     super(props);
     this.state={
       products:[],
-      cart: []
-      
-    }
+      cart: [],
+    };
+    // this.handleRemove = this.handleRemove.bind(this);
   }
 
-    // state = {
+  
+  // state = {
     //   products: [],
     //   cart: []
     // }
@@ -54,15 +55,27 @@ class App extends Component {
       }
   }
 
+ 
+
+  decreaseQty = (item) => {
+
+  }
+
   // calculateTotal = () => {
   //   product.price * product.qty 
   // }
-
-             
+  
   render(){ 
-            
+    
     if(this.state.products) {
-      // const loadData = () => JSON.parse(JSON.stringify(this.state.products));
+      // const removeButton = { 
+      //       if (qty > 1) {
+      //        removeButton = <button onClick={this.decreaseQty.bind(this, item)}>Remove one</button>
+      //       } else {
+      //        removeButton = <button onClick={this.removeItem.bind(this, item)}>Remove from cart</button>
+      //       }  }
+                      // const loadData = () => JSON.parse(JSON.stringify(this.state.products));
+        
       // console.log(this.state.products)
       return (
         <div>
@@ -84,12 +97,26 @@ class App extends Component {
             )}
             <div>
               <h1>Your Cart</h1>
-                {this.state.cart.map(product =>
-                  <ul key={product.uuid}>
-                    <p>{product.name}</p>
-                    <p>${product.price}</p>
-                    <p>Quantity: {product.qty}</p>
-                    <button >Add one more</button> <button>Remove one</button>
+                {this.state.cart.map(item =>
+                  <ul key={item.uuid}>
+                    <p>{item.name}</p>
+                    <p>${item.price}</p>
+                    <p>Quantity: {item.qty}</p>
+                    <button onClick={this.addToCart.bind(this, item)}>Add one more</button> 
+                    {
+                      (() => {
+                        // const handler = this.state.cart.item.qty >= 2
+                        //     ? this.handleRemoveOne 
+                        //     : this.handleRemove;
+                        const label = item.qty > 1 ? 'Remove one item' : 'Remove from cart';
+                      
+                        return (
+                          <button>
+                            {label}
+                          </button>
+                        );
+                      })()
+                    }
                   </ul>
                 )}
                 <p><strong>
@@ -99,18 +126,10 @@ class App extends Component {
           </span>
         </div> 
       );
-    
-    // const totalBeforeDiscount = 0
-    // for(let i = 0; i < this.props.cart.length; i++)
-    //   totalBeforeDiscount += (this.props.product[i].price * this.props.product[i].qty)
-    }
-
-    {
+    } else {
       return <div>Loading items</div>
     }
   }
 }
-
-          
-            
+  
 export default App;
